@@ -2,9 +2,9 @@
   <div id="app">
     <Header subtitle="Log In"/>
 
-    <b-form @submit="onSubmit">
-      <b-form-group label="Email:" label-for="name">
-        <b-form-input id="name" v-model="form.email" placeholder="Enter email" required></b-form-input>
+    <b-form name="mainForm" @submit="onSubmit">
+      <b-form-group label="Email:" label-for="email">
+        <b-form-input id="email" v-model="form.email" placeholder="Enter email" required></b-form-input>
       </b-form-group>
 
       <b-form-group label="Password:" label-for="password">
@@ -19,7 +19,7 @@
 <script>
 
   import Header from '@/components/Header.vue';
-  import { mapActions } from 'vuex';
+  import { mapActions, mapMutations } from 'vuex';
 
   export default {
     name: 'Login',
@@ -39,9 +39,36 @@
 
     methods: {
       ...mapActions(['login']),
+      ...mapMutations(['setAdmin','setModerator']),
 
       onSubmit(e) {
         e.preventDefault();
+
+        let email = document.forms["mainForm"]["email"].value;
+        if (email === "") {
+          alert("Email must be filled out");
+          return false;
+        } else if (email.length < 3 | !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))) {
+          alert("Email is not valid");
+          return false;
+        }
+         let password = document.forms["mainForm"]["password"].value;
+         if (password === "") {
+           alert("Password must be filled out");
+           return false;
+         } else if (password.length < 3 | password.length > 16 ) {
+           alert("Password is not valid!");
+           return false;
+         }
+
+         if(email.includes("@admin.com")){
+          localStorage.setItem('admin','admin')
+          this.setAdmin(localStorage.admin)
+
+         }else if(email.includes("@moderator.com")){
+          localStorage.setItem('moderator','moderator')
+          this.setModerator(localStorage.moderator)
+         }
 
         this.login(this.form);
         this.$router.push({ name: 'Home' });

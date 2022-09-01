@@ -17,7 +17,8 @@
               <b-dropdown-item to="/standups">Standups</b-dropdown-item>
               <b-dropdown-item to="/animes">Animes</b-dropdown-item>
             </b-nav-item-dropdown>
-            <b-nav-item to="/add">Add</b-nav-item>
+            <b-nav-item v-if="moderator" to="/add">Add</b-nav-item>
+            <b-nav-item v-else-if="admin" to="/add">Add</b-nav-item>
           </b-navbar-nav>
 
           <b-navbar-nav class="ml-auto">
@@ -46,18 +47,22 @@
 
     data() {
       return {
-        search: ''
+        search: '',
       }
     },
 
     computed: {
-      ...mapState([,
-        'token'
+      ...mapState([
+        'token','admin','moderator'
       ])
     },
 
     mounted() {
-
+      if (localStorage.moderator) {
+        this.setModerator(localStorage.moderator);
+      }else if(localStorage.admin){
+        this.setAdmin(localStorage.admin);
+      }
       if (localStorage.token) {
         this.setToken(localStorage.token);
       }
@@ -67,11 +72,17 @@
 
       ...mapMutations([
         'removeToken',
-        'setToken'
+        'setToken',
+        'setAdmin',
+        'removeAdmin',
+        'setModerator',
+        'removeModerator'
       ]),
 
       logout() {
         this.removeToken();
+        this.removeAdmin();
+        this.removeModerator();
       }
     },
 

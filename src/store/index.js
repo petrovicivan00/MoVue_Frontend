@@ -10,8 +10,8 @@ export default new Vuex.Store({
     shows: [],
     standups: [],
     animes: [],
-    loading: false,
-    error: null,
+    admin:'',
+    moderator:'',
     token: ''
   },
   getters: {  
@@ -19,7 +19,8 @@ export default new Vuex.Store({
     getShows: state => state.shows,
     getStandups: state => state.standups,
     getAnimes: state => state.animes,
-    user: state => state.user
+    getAdmin: state => state.admin,
+    getModerator: state => state.moderator
   },
   mutations: {
 
@@ -51,17 +52,25 @@ export default new Vuex.Store({
       state.token = token;
       localStorage.token = token;
     },
-
     removeToken(state) {
       state.token = '';
       localStorage.token = '';
     },
-
-    addComment(state, obj) {
-      const image = state.items.filter( item => item.objectID == obj.artId )[0];
-      if (image) {
-        image.comments.push(obj.comment);
-      }
+    setAdmin(state,admin){
+      state.admin = admin;
+      localStorage.admin = admin;
+    },
+    setModerator(state){
+      state.moderator = moderator;
+      localStorage.moderator = moderator;
+    },
+    removeAdmin(state) {
+      state.admin = '';
+      localStorage.token = '';
+    },
+    removeModerator(state) {
+      state.moderator = '';
+      localStorage.moderator = '';
     }
   },
 

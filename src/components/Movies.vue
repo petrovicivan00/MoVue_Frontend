@@ -9,6 +9,7 @@
             <li>Main Actor: {{ movie.mainActor}}</li>
             <li>Rating: {{ movie.rating}}</li>
            </ul>
+           <button>Play</button>
            <div class="btn">
             <button>Edit</button>
             <button @click="deleteMovie(movie)">Delete</button>
