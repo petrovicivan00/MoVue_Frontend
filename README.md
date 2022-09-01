@@ -1,4 +1,4 @@
-# Gallery
+# My Movie App
 
 ## Project setup
 ```
