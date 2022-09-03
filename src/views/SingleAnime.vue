@@ -1,38 +1,38 @@
 <template>
   <div id="app">
     <Header :subtitle="subtitle"/>
-    <Movie :movie="movie"/>
+    <Anime :anime="anime"/>
   </div>
 </template>
 
 <script>
 
   import Header from '@/components/Header.vue';
-  import Movie from '@/components/Movie.vue';
+  import Anime from '@/components/Anime.vue';
   //import Comments from '@/components/Comments.vue';
   import { mapGetters} from 'vuex';
 
   export default {
-    name: 'SingleMovie',
+    name: 'SingleAnime',
 
     components: {
       Header,
-      Movie,
+      Anime,
      // Comments
     },
 
     data() {
       return {
-        movie: null,
+        anime: null,
         subtitle: ''
       }
     },
     computed: {
-        ...mapGetters(['getMovie'])
+        ...mapGetters(['getAnime'])
     },
     mounted() {
-        this.movie = this.getMovie
-        this.subtitle = this.movie.title
+        this.anime = this.getAnime
+        this.subtitle = this.anime.title
     }
   }
 

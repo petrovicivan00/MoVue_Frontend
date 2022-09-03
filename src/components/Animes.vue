@@ -10,8 +10,7 @@
             <li>Rating: {{ anime.rating}}</li>
            </ul>
            <div class="btn">
-            <button>Edit</button>
-            <button @click="deleteAnime(anime)">Delete</button>
+            <button @click="playAnime(anime)" v-if="token">Play</button>
            </div>
         </div>
       </div>
@@ -26,13 +25,17 @@ export default {
   name: 'Animes',
 
   computed: {
-     ...mapState(['animes']),
+     ...mapState(['animes','token']),
     ...mapGetters(['getAnimes'])
   },
   methods: {
     ...mapActions(['GET_ANIMES']),
-    ...mapMutations(['removeAnime','searchAnime']),
+    ...mapMutations(['removeAnime','searchAnime', 'setAnime']),
 
+    playAnime(a) {
+      this.setAnime(a),
+      this.$router.push({ name: 'SingleAnime' });
+    },
     deleteAnime(a) {
       this.removeAnime(a)
     },
@@ -48,13 +51,19 @@ export default {
 
 <style scoped>
 
+.btn{
+  width:200px;
+  position:absolute;
+  bottom:0;
+  align-content: space-around;
+}
 .card {
   padding: 20px ;
   margin: 20px;
   background: #101010;
   color:#a4a4a4;
   width:250px;
-  height:400px;
+  height:450px;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;

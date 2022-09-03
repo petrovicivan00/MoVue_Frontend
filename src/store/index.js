@@ -6,19 +6,27 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    movie:[],
     movies: [],
     shows: [],
+    show:[],
     standups: [],
+    standup:[],
     animes: [],
+    anime:[],
     admin:'',
     moderator:'',
     token: ''
   },
   getters: {  
     getMovies: state => state.movies,
+    getMovie: state => state.movie,
     getShows: state => state.shows,
+    getShow: state => state.show,
     getStandups: state => state.standups,
+    getStandup: state => state.standup,
     getAnimes: state => state.animes,
+    getAnime: state => state.anime,
     getAdmin: state => state.admin,
     getModerator: state => state.moderator
   },
@@ -27,26 +35,30 @@ export default new Vuex.Store({
     setMovies: (state,movies) => state.movies = movies,
     newMovie: () => alert('movie added'),
     removeMovie: (state,movie) => state.movies = state.movies.filter(m => m !== movie),
-    setMovie: (state,movie) => state.movie.push(movie),
+    addMovie: (state,movie) => state.movies.push(movie),
     searchMovie: (state,search) => state.movies = state.movies.filter(movie => movie.title.includes(search)),
+    setMovie: (state,movie) => state.movie = movie,
 
     setShows: (state,shows) => state.shows = shows,
     newShow: () => alert('show added'),
     removeShow: (state ,show) => state.shows = state.shows.filter(s => s !== show),
-    setShow: (state,show) => state.shows.push(show),
+    addShow: (state,show) => state.shows.push(show),
     searchShow: (state,) => state.shows = state.shows.filter(show => show.title.includes(search)),
+    setShow: (state,show) => state.show = show,
 
     setStandups: (state,standups) => state.standups = standups,
     newStandup: () => alert('standup added'),
     removeStandup: (state ,standup) => state.standups = state.standups.filter(s => s !== standup),
-    setStandup: (state,standup) => state.standup.push(standup),
+    addStandup: (state,standup) => state.standups.push(standup),
     searchStandup: (state,search) => state.standups = state.standups.filter(standup => standup.title.includes(search)),
+    setStandup: (state,standup) => state.standup = standup,
 
     setAnimes: (state,animes) => state.animes = animes,
     newAnime: () => alert('anime added'),
     removeAnime: (state ,anime) => state.animes = state.animes.filter(a => a !== anime),
-    setAnime: (state,anime) => state.anime.push(anime),
+    addAnime: (state,anime) => state.animes.push(anime),
     searchAnime: (state,search) => state.animes = state.animes.filter(anime => anime.title.includes(search)),
+    setAnime: (state,anime) => state.anime = anime,
 
     setToken(state, token) {
       state.token = token;
@@ -282,7 +294,7 @@ await axios
   })
   },
   async register({ commit }, obj) {
-  fetch('http://localhost:3000/auth/register', {
+  fetch('http://localhost:2000/auth/register', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(obj)
@@ -290,10 +302,14 @@ await axios
     .then( tkn => commit('setToken', tkn.token) );
   },
   async login({ commit }, obj) {
-  fetch('http://localhost:3000/auth/login', {
+    const parameters = {
+      email: obj.email,
+      password: obj.password,
+    };
+  fetch('http://localhost:2000/auth/login', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(obj)
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(parameters)
 }).then( res => res.json() )
   .then( tkn => {
     if (tkn.msg) {
@@ -302,10 +318,6 @@ await axios
       commit('setToken', tkn.token)
     }
   });
-  },
-  socket_comment({ commit }, msg) {
-      const comment = JSON.parse(msg);
-      commit('addComment', { artId: comment.artId, comment: comment });
   }
 }      
 })

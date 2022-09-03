@@ -1,6 +1,6 @@
 <template>
   <div class="naslov">
-    <h1 v-if="subtitle">{{ subtitle }}</h1>
+    <h1 v-if="subtitle"><b>{{ subtitle }}</b></h1>
   </div>
 </template>
 

@@ -9,10 +9,9 @@
           <li>Creator: {{ standup.mainActor }}</li>
           <li>Rating: {{ standup.rating}}</li>
         </ul>
-        <div class="btn">
-          <button>Edit</button>
-          <button @click="deleteStandup(standup)">Delete</button>
-         </div>
+           <div class="btn">
+            <button @click="playStandup(standup)" v-if="token">Play</button>
+           </div>
       </div>
     </div>
   </div>
@@ -26,14 +25,18 @@ export default {
 name: 'Standups',
 
 computed: {
-  ...mapState(['standups']),
+  ...mapState(['standups','token']),
   ...mapGetters(['getStandups'])
 },
 methods: {
   
   ...mapActions(['GET_STANDUPS']),
-  ...mapMutations(['removeStandup','searchStandup']),
+  ...mapMutations(['removeStandup','searchStandup', 'setStandup']),
 
+  playStandup(s) {
+      this.setStandup(s),
+      this.$router.push({ name: 'SingleStandup' });
+  },
   deleteStandup(s) {
     this.removeStandup(s)
   },
@@ -51,13 +54,20 @@ mounted() {
 
 <style scoped>
 
+.btn{
+  width:200px;
+  position:absolute;
+  bottom:0;
+  align-content: space-around;
+} 
+
 .card {
 padding: 20px ;
 margin: 20px;
 background: #101010;
 color:#a4a4a4;
 width:250px;
-height:400px;
+height:450px;
 -webkit-border-radius: 6px;
 -moz-border-radius: 6px;
 border-radius: 6px;

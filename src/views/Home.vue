@@ -1,41 +1,58 @@
 <template>
   <div id="app">
-    <Header subtitle="Home"/>
-    <h2>Movies</h2>
-    <section class="s"><Movies /></section>
+    <Header subtitle="Welcome to MyMovieApp!"/>
+    <img class="img" src="../assets/favicon.jpg">
     <hr>
-    <h2>Shows</h2>
-    <section class="s"><Shows /></section>
-    <hr>
-    <h2>Standups</h2>
-    <section class="s"><Standups /></section>
-    <hr>
-    <h2>Animes</h2>
-    <section class="s"><Animes /></section>
+    <br>
+    <div class="container">
+    <h3 @click="movies">Movies</h3>
+    <h3 @click="shows">Shows</h3>
+    <h3 @click="standups">Standups</h3>
+    <h3 @click="animes">Animes</h3>
+    </div>
   </div>
 </template>
 
 <script>
   import Header from '@/components/Header.vue'
-  import Movies from '@/components/Movies.vue';
-  import Shows from '@/components/Shows.vue';
-  import Standups from '@/components/Standups.vue';
-  import Animes from '@/components/Animes.vue';
 
   export default {
     name: 'Home',
     
     components: {
-      Header,
-      Movies: Movies,
-      Shows: Shows,
-      Standups: Standups,
-      Animes: Animes
+      Header
+    },
+
+    methods:{
+      movies(){
+        this.$router.push({ name: 'MovieDepartment' })
+      },
+      shows(){
+        this.$router.push({ name: 'ShowDepartment' })
+      },
+      standups(){
+        this.$router.push({ name: 'StandupDepartment' })
+      },
+      animes(){
+        this.$router.push({ name:'AnimeDepartment'})
+      },
     }
   }
 </script>
 
 <style scoped>
+
+.container{
+  position:fixed;
+  display:flex;
+  flex-direction:row;
+  justify-content: space-around;
+}
+.img{
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
 .s{
   min-height:500px;
 }

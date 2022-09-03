@@ -17,8 +17,8 @@
               <b-dropdown-item to="/standups">Standups</b-dropdown-item>
               <b-dropdown-item to="/animes">Animes</b-dropdown-item>
             </b-nav-item-dropdown>
-            <b-nav-item v-if="moderator" to="/add">Add</b-nav-item>
-            <b-nav-item v-else-if="admin" to="/add">Add</b-nav-item>
+       <!-- <b-nav-item v-if="moderator" to="/add">Add</b-nav-item>
+            <b-nav-item v-else-if="admin" to="/add">Add</b-nav-item> --> 
           </b-navbar-nav>
 
           <b-navbar-nav class="ml-auto">

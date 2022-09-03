@@ -9,10 +9,8 @@
             <li>Main Actor: {{ movie.mainActor}}</li>
             <li>Rating: {{ movie.rating}}</li>
            </ul>
-           <button>Play</button>
            <div class="btn">
-            <button>Edit</button>
-            <button @click="deleteMovie(movie)">Delete</button>
+            <button v-if="token" @click="playMovie(movie)">Play</button>
            </div>
         </div>
       </div>
@@ -27,17 +25,20 @@ export default {
   name: 'Movies',
 
   computed: {
-    ...mapState(['movies']),
+    ...mapState(['movies','admin','moderator', 'token']),
     ...mapGetters(['getMovies'])
   },
   methods: {
     ...mapActions(['GET_MOVIES']),
-    ...mapMutations(['removeMovie','searchMovie']),
+    ...mapMutations(['removeMovie','searchMovie', 'setMovie']),
 
     deleteMovie(m) {
       this.removeMovie(m)
     },
-
+    playMovie(m) {
+      this.setMovie(m),
+      this.$router.push({ name: 'SingleMovie' });
+    },
     search(){
       this.searchMovie(this.searchMovie)
     }
@@ -50,13 +51,19 @@ export default {
 
 <style scoped>
 
+.btn{
+  width:200px;
+  position:absolute;
+  bottom:0;
+  align-content: space-around;
+}
 .card {
   padding: 20px ;
   margin: 20px;
   background: #101010;
   color:#a4a4a4;
   width:250px;
-  height:400px;
+  height:450px;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
@@ -64,6 +71,7 @@ export default {
   margin-bottom: 15px;
   float: left;
 }
+
 .list{
   list-style-type: none; 
   padding: 0;

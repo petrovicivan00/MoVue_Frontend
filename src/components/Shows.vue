@@ -9,9 +9,8 @@
             <li>S{{ show.season}}E{{ show.episode}}</li>
             <li>Rating: {{ show.rating}}</li>
           </ul>
-          <div class="btn">
-            <button>Edit</button>
-            <button @click="deleteShow(show)">Delete</button>
+           <div class="btn">
+            <button @click="playShow(show)" v-if="token">Play</button>
            </div>
         </div>
       </div>
@@ -27,13 +26,17 @@ export default {
   name: 'Shows',
 
   computed: {
-    ...mapState(['shows']),
+    ...mapState(['shows','token']),
     ...mapGetters(['getShows'])
   },
   methods: {
     ...mapActions(['GET_SHOWS']),
-    ...mapMutations(['removeShow','editShow','searchShow']),
+    ...mapMutations(['removeShow','searchShow', 'setShow']),
 
+    playShow(s) {
+      this.setShow(s),
+      this.$router.push({ name: 'SingleShow' });
+    },
     deleteShow(s) {
       this.removeShow(s)
     },
@@ -49,13 +52,19 @@ export default {
 
 <style scoped>
 
+.btn{
+  width:200px;
+  position:absolute;
+  bottom:0;
+  align-content: space-around;
+}
 .card {
   padding: 20px ;
   margin: 20px;
   background: #101010;
   color:#a4a4a4;
   width:250px;
-  height:400px;
+  height:450px;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;

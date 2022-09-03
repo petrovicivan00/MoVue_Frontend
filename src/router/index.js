@@ -6,6 +6,10 @@ import ShowDepartment from '@/views/ShowDepartment.vue';
 import StandupDepartment from '@/views/StandupDepartment.vue';
 import AnimeDepartment from '@/views/AnimeDepartment.vue';
 import AddDepartment from '@/views/AddDepartment.vue';
+import SingleMovie from '@/views/SingleMovie.vue';
+import SingleShow from '@/views/SingleShow.vue';
+import SingleStandup from '@/views/SingleStandup.vue';
+import SingleAnime from '@/views/SingleAnime.vue';
 import Register from '@/views/Register.vue';
 import Login from '@/views/Login.vue';
 
@@ -41,6 +45,26 @@ const routes = [
     path: '/add',
     name: 'AddDepartment',
     component: AddDepartment
+  },
+  {
+    path: '/movie',
+    name: 'SingleMovie',
+    component: SingleMovie
+  },
+  {
+    path: '/show',
+    name: 'SingleShow',
+    component: SingleShow
+  },
+  {
+    path: '/standup',
+    name: 'SingleStandup',
+    component: SingleStandup
+  },
+  {
+    path: '/anime',
+    name: 'SingleAnime',
+    component: SingleAnime
   },
   {
     path: '/register',

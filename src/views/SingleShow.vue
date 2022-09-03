@@ -1,38 +1,38 @@
 <template>
   <div id="app">
     <Header :subtitle="subtitle"/>
-    <Movie :movie="movie"/>
+    <Show :show="show"/>
   </div>
 </template>
 
 <script>
 
   import Header from '@/components/Header.vue';
-  import Movie from '@/components/Movie.vue';
+  import Show from '@/components/Show.vue';
   //import Comments from '@/components/Comments.vue';
   import { mapGetters} from 'vuex';
 
   export default {
-    name: 'SingleMovie',
+    name: 'SingleShow',
 
     components: {
       Header,
-      Movie,
+      Show: Show,
      // Comments
     },
 
     data() {
       return {
-        movie: null,
+        show: null,
         subtitle: ''
       }
     },
     computed: {
-        ...mapGetters(['getMovie'])
+        ...mapGetters(['getShow'])
     },
     mounted() {
-        this.movie = this.getMovie
-        this.subtitle = this.movie.title
+        this.show = this.getShow
+        this.subtitle = this.show.title
     }
   }
 
