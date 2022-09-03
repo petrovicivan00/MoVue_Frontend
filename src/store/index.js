@@ -14,8 +14,6 @@ export default new Vuex.Store({
     standup:[],
     animes: [],
     anime:[],
-    admin:'',
-    moderator:'',
     token: ''
   },
   getters: {  

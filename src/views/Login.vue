@@ -39,7 +39,6 @@
 
     methods: {
       ...mapActions(['login']),
-      ...mapMutations(['setAdmin','setModerator']),
 
       onSubmit(e) {
         e.preventDefault();
@@ -59,15 +58,6 @@
          } else if (password.length < 3 | password.length > 16 ) {
            alert("Password is not valid!");
            return false;
-         }
-
-         if(email.includes("@admin.com")){
-          localStorage.setItem('admin','admin')
-          this.setAdmin(localStorage.admin)
-
-         }else if(email.includes("@moderator.com")){
-          localStorage.setItem('moderator','moderator')
-          this.setModerator(localStorage.moderator)
          }
 
         this.login(this.form);

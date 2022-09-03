@@ -2,7 +2,7 @@
   <div id="app">
     <Header subtitle="Create account"/>
 
-    <b-form @submit="onSubmit">
+    <b-form name="mainForm" @submit="onSubmit">
       <b-form-group label="Email address:" label-for="email">
         <b-form-input id="email" v-model="form.email" type="email" placeholder="Enter email" required></b-form-input>
       </b-form-group>
@@ -14,9 +14,7 @@
       <b-form-group label="Password:" label-for="password">
         <b-form-input id="password" v-model="form.password" placeholder="Enter password" type="password" required></b-form-input>
       </b-form-group>
-      <b-form-checkbox id="isAdmin" v-model="form.isAdmin" :value="true" :unchecked-value="false">Admin</b-form-checkbox>
-      <b-form-checkbox id="isModerator" v-model="form.isModerator" :value="true" :unchecked-value="false">Moderator</b-form-checkbox>
-      <br>
+    <br>
       <b-button type="submit" variant="primary">Submit</b-button>
     </b-form>
   </div>
@@ -42,10 +40,7 @@
           password: '',
           isAdmin: false,
           isModerator: false
-        },
-        emailError:'',
-        usernameError:'',
-        passwordError:'',
+        }
       }
     },
 
@@ -54,7 +49,24 @@
 
       onSubmit(e) {
         e.preventDefault();
-        
+
+        let email = document.forms["mainForm"]["email"].value;
+        if (email === "") {
+          alert("Email must be filled out");
+          return false;
+        } else if (email.length < 3 | !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))) {
+          alert("Email is not valid");
+          return false;
+        }
+         let password = document.forms["mainForm"]["password"].value;
+         if (password === "") {
+           alert("Password must be filled out");
+           return false;
+         } else if (password.length < 3 | password.length > 16 ) {
+           alert("Password is not valid!");
+           return false;
+         }
+
         this.register(this.form);
         this.$router.push({ name: 'Home' });
       }
