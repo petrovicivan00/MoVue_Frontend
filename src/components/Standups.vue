@@ -39,10 +39,6 @@ methods: {
   },
   deleteStandup(s) {
     this.removeStandup(s)
-  },
-  
-  search(){
-    this.searchStandup(this.searchStandup)
   }
 
 },

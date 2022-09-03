@@ -38,9 +38,6 @@ export default {
     },
     deleteAnime(a) {
       this.removeAnime(a)
-    },
-    search(){
-      this.searchAnime(this.searchAnime)
     }
   },
   mounted() {

@@ -38,9 +38,6 @@ export default {
     playMovie(m) {
       this.setMovie(m),
       this.$router.push({ name: 'SingleMovie' });
-    },
-    search(){
-      this.searchMovie(this.searchMovie)
     }
   },
   mounted() {

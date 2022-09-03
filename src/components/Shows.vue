@@ -39,9 +39,6 @@ export default {
     },
     deleteShow(s) {
       this.removeShow(s)
-    },
-    editShow(s){
-      this.editShow(s)
     }
   },
   mounted() {

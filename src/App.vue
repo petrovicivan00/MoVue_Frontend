@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-
     <div>
       <b-navbar toggleable="sm" type="light" variant="danger">
         <b-navbar-brand to="/">MyMovieApp</b-navbar-brand>
@@ -27,7 +26,7 @@
             <b-nav-item v-else @click="logout()">Log Out</b-nav-item>
             <b-nav-form>
               <b-form-input v-model="search" size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-              <b-button size="sm" class="my-2 my-sm-0" color="black" type="submit">Search</b-button>
+              <b-button  @click="browse()" size="sm" class="my-2 my-sm-0" color="black" type="submit">Search</b-button>
             </b-nav-form>
           </b-navbar-nav>
         </b-collapse>
@@ -40,7 +39,7 @@
 
 <script>
 
-  import { mapState, mapMutations } from 'vuex';
+  import { mapState, mapMutations, mapActions } from 'vuex';
 
   export default {
     name: 'App',
@@ -53,36 +52,40 @@
 
     computed: {
       ...mapState([
-        'token','admin','moderator'
-      ])
+        'token'
+      ]),
     },
 
     mounted() {
-      if (localStorage.moderator) {
-        this.setModerator(localStorage.moderator);
-      }else if(localStorage.admin){
-        this.setAdmin(localStorage.admin);
-      }
       if (localStorage.token) {
         this.setToken(localStorage.token);
       }
     },
 
     methods: {
+      ...mapActions(['GET_MOVIES','GET_SHOWS','GET_STANDUPS','GET_ANIMES']),
 
       ...mapMutations([
         'removeToken',
         'setToken',
-        'setAdmin',
-        'removeAdmin',
-        'setModerator',
-        'removeModerator'
+        'searchMovie',
+        'searchShow',
+        'searchStandup',
+        'searchAnime'
       ]),
 
       logout() {
         this.removeToken();
-        this.removeAdmin();
-        this.removeModerator();
+      },
+      browse(){
+        //this.GET_MOVIES();
+        //this.GET_SHOWS();
+        //this.GET_STANDUPS();
+        //this.GET_ANIMES();
+        this.searchMovie(this.search);
+        this.searchShow(this.search);
+        this.searchStandup(this.search);
+        this.searchAnime(this.search);
       }
     },
 

@@ -2,8 +2,7 @@
     <div class="movie">
         <div>
           <section style="position:center">
-            <iframe width="1100" height="600" src="https://www.youtube.com/embed/LatTvOznros" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </section>
+            <iframe width="1100" height="600" src="https://www.youtube.com/embed/JfVOs4VSpmA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>          </section>
         </div>
     </div>
 </template>

@@ -36,29 +36,30 @@ export default new Vuex.Store({
     newMovie: () => alert('movie added'),
     removeMovie: (state,movie) => state.movies = state.movies.filter(m => m !== movie),
     addMovie: (state,movie) => state.movies.push(movie),
-    searchMovie: (state,search) => state.movies = state.movies.filter(movie => movie.title.includes(search)),
+    searchMovie: (state,search) => state.movies = state.movies.filter(movie => movie.title.toLowerCase().includes(search.toLowerCase())),
     setMovie: (state,movie) => state.movie = movie,
 
     setShows: (state,shows) => state.shows = shows,
     newShow: () => alert('show added'),
     removeShow: (state ,show) => state.shows = state.shows.filter(s => s !== show),
     addShow: (state,show) => state.shows.push(show),
-    searchShow: (state,) => state.shows = state.shows.filter(show => show.title.includes(search)),
+    searchShow: (state,search) => state.shows = state.shows.filter(show => show.title.toLowerCase().includes(search.toLowerCase())),
     setShow: (state,show) => state.show = show,
 
     setStandups: (state,standups) => state.standups = standups,
     newStandup: () => alert('standup added'),
     removeStandup: (state ,standup) => state.standups = state.standups.filter(s => s !== standup),
     addStandup: (state,standup) => state.standups.push(standup),
-    searchStandup: (state,search) => state.standups = state.standups.filter(standup => standup.title.includes(search)),
+    searchStandup: (state,search) => state.standups = state.standups.filter(standup => standup.title.toLowerCase().includes(search.toLowerCase())),
     setStandup: (state,standup) => state.standup = standup,
 
     setAnimes: (state,animes) => state.animes = animes,
     newAnime: () => alert('anime added'),
     removeAnime: (state ,anime) => state.animes = state.animes.filter(a => a !== anime),
     addAnime: (state,anime) => state.animes.push(anime),
-    searchAnime: (state,search) => state.animes = state.animes.filter(anime => anime.title.includes(search)),
+    searchAnime: (state,search) => state.animes = state.animes.filter(anime => anime.title.toLowerCase().includes(search.toLowerCase())),
     setAnime: (state,anime) => state.anime = anime,
+
 
     setToken(state, token) {
       state.token = token;
@@ -67,22 +68,6 @@ export default new Vuex.Store({
     removeToken(state) {
       state.token = '';
       localStorage.token = '';
-    },
-    setAdmin(state,admin){
-      state.admin = admin;
-      localStorage.admin = admin;
-    },
-    setModerator(state){
-      state.moderator = moderator;
-      localStorage.moderator = moderator;
-    },
-    removeAdmin(state) {
-      state.admin = '';
-      localStorage.token = '';
-    },
-    removeModerator(state) {
-      state.moderator = '';
-      localStorage.moderator = '';
     }
   },
 
@@ -144,7 +129,6 @@ export default new Vuex.Store({
         .then((response) => {
             const shows = response.data
             commit("setShows",shows)
-            console.log(shows)
         })
         .catch((err) => {
             alert(err)
