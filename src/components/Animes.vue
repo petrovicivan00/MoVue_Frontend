@@ -19,7 +19,7 @@
 
 <script>
 
-import {mapActions , mapState, mapMutations, mapGetters} from 'vuex'
+import {mapState, mapMutations, mapGetters} from 'vuex'
 
 export default {
   name: 'Animes',
@@ -29,19 +29,12 @@ export default {
     ...mapGetters(['getAnimes'])
   },
   methods: {
-    ...mapActions(['GET_ANIMES']),
-    ...mapMutations(['removeAnime','searchAnime', 'setAnime']),
+    ...mapMutations(['setAnime']),
 
     playAnime(a) {
       this.setAnime(a),
       this.$router.push({ name: 'SingleAnime' });
-    },
-    deleteAnime(a) {
-      this.removeAnime(a)
     }
-  },
-  mounted() {
-    this.GET_ANIMES()
   }
 }
 </script>

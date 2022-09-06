@@ -14,6 +14,7 @@ export default new Vuex.Store({
     standup:[],
     animes: [],
     anime:[],
+    comments:[],
     token: ''
   },
   getters: {  
@@ -25,8 +26,6 @@ export default new Vuex.Store({
     getStandup: state => state.standup,
     getAnimes: state => state.animes,
     getAnime: state => state.anime,
-    getAdmin: state => state.admin,
-    getModerator: state => state.moderator
   },
   mutations: {
 
@@ -34,39 +33,44 @@ export default new Vuex.Store({
     newMovie: () => alert('movie added'),
     removeMovie: (state,movie) => state.movies = state.movies.filter(m => m !== movie),
     addMovie: (state,movie) => state.movies.push(movie),
-    searchMovie: (state,search) => state.movies = state.movies.filter(movie => movie.title.toLowerCase().includes(search.toLowerCase())),
     setMovie: (state,movie) => state.movie = movie,
+    searchMovie: (state,search) => state.movies = state.movies.filter(movie => movie.title.toLowerCase().includes(search.toLowerCase())),
 
     setShows: (state,shows) => state.shows = shows,
     newShow: () => alert('show added'),
     removeShow: (state ,show) => state.shows = state.shows.filter(s => s !== show),
     addShow: (state,show) => state.shows.push(show),
-    searchShow: (state,search) => state.shows = state.shows.filter(show => show.title.toLowerCase().includes(search.toLowerCase())),
     setShow: (state,show) => state.show = show,
+    searchShow: (state,search) => state.shows = state.shows.filter(show => show.title.toLowerCase().includes(search.toLowerCase())),
 
     setStandups: (state,standups) => state.standups = standups,
     newStandup: () => alert('standup added'),
     removeStandup: (state ,standup) => state.standups = state.standups.filter(s => s !== standup),
     addStandup: (state,standup) => state.standups.push(standup),
-    searchStandup: (state,search) => state.standups = state.standups.filter(standup => standup.title.toLowerCase().includes(search.toLowerCase())),
     setStandup: (state,standup) => state.standup = standup,
+    searchStandup: (state,search) => state.standups = state.standups.filter(standup => standup.title.toLowerCase().includes(search.toLowerCase())),
 
     setAnimes: (state,animes) => state.animes = animes,
     newAnime: () => alert('anime added'),
     removeAnime: (state ,anime) => state.animes = state.animes.filter(a => a !== anime),
     addAnime: (state,anime) => state.animes.push(anime),
-    searchAnime: (state,search) => state.animes = state.animes.filter(anime => anime.title.toLowerCase().includes(search.toLowerCase())),
     setAnime: (state,anime) => state.anime = anime,
-
+    searchAnime: (state,search) => state.animes = state.animes.filter(anime => anime.title.toLowerCase().includes(search.toLowerCase())),
+    
+    getComments: (state,obj) => state.comments.filter(comment => comment.object === obj),
+    setComments: (state,comments) => state.comments = comments,
+    addComment: (state,comment) => state.comments.push(comment),
+    removeComment: (state,comment) => state.comments = state.comments.filter(c => c !== comment),
 
     setToken(state, token) {
       state.token = token;
       localStorage.token = token;
+      console.log(token)
     },
     removeToken(state) {
       state.token = '';
       localStorage.token = '';
-    }
+    },
   },
 
   actions: {
@@ -112,10 +116,10 @@ export default new Vuex.Store({
    },
   async searchMovie({ commit },title) {
     await axios
-     .get(`http://localhost:3000/api/movies/${title}`)
+     .get(`http://localhost:3000/api/movies/find/${title}`)
      .then((response) => {
         const movie = response.data
-        commit('setMovie',movie)
+        commit('setMovies',movie)
       })
     .catch((err) => {
         alert(err)
@@ -163,10 +167,10 @@ export default new Vuex.Store({
  },
   async searchShow({ commit },title) {
   await axios
-   .get(`http://localhost:3000/api/shows/${title}`)
+   .get(`http://localhost:3000/api/shows/find/${title}`)
    .then((response) => {
       const show = response.data
-      commit('setShow',show)
+      commit('setShows',show)
     })
   .catch((err) => {
       alert(err)
@@ -213,10 +217,10 @@ await axios
   },
   async searchStandup({ commit },title) {
 await axios
- .get(`http://localhost:3000/api/standups/${title}`)
+ .get(`http://localhost:3000/api/standups/find/${title}`)
  .then((response) => {
     const standup = response.data
-    commit('setStandup',standup)
+    commit('setStandups',standup)
   })
 .catch((err) => {
     alert(err)
@@ -257,7 +261,6 @@ await axios
 await axios
   .delete(`http://localhost:3000/api/animes/${id}`)
   .then((response) => {
-    console.log(response.data)
     commit('removeAnime',title)
  })
   .catch((err) => {
@@ -266,7 +269,7 @@ await axios
   },
   async searchAnime({ commit },title) {
 await axios
- .get(`http://localhost:3000/api/animes/${title}`)
+ .get(`http://localhost:3000/api/animes/find/${title}`)
  .then((response) => {
     const anime = response.data
     commit('setAnime',anime)
@@ -300,6 +303,34 @@ await axios
       commit('setToken', tkn.token)
     }
   });
+  },
+  async GET_COMMENTS({commit},id) {
+    await axios
+        .get('http://localhost:3000/api/comments/'+id)
+        .then((response) => {
+            const comments = response.data
+            commit("setComments",comments)
+        })
+        .catch((err) => {
+            alert(err)
+        })
+  },
+  async postComment({ commit },payload){
+    await axios
+      .post('http://localhost:3000/api/comments',{ 
+        object: payload.object,
+        content: payload.content
+     })
+      .then((response) => {
+        console.log(response.data)
+        commit('')
+     })
+      .catch((err) => {
+        alert(err)
+     })
+    },
+  socket_comment({ commit }, comment) {
+    commit('addComment', { comment });
   }
 }      
 })

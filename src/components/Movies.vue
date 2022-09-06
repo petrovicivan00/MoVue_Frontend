@@ -19,29 +19,22 @@
 
 <script>
 
-import {mapActions , mapState, mapGetters, mapMutations} from 'vuex'
+import { mapState, mapGetters, mapMutations} from 'vuex'
 
 export default {
   name: 'Movies',
 
   computed: {
-    ...mapState(['movies','admin','moderator', 'token']),
+    ...mapState(['movies','token']),
     ...mapGetters(['getMovies'])
   },
   methods: {
-    ...mapActions(['GET_MOVIES']),
-    ...mapMutations(['removeMovie','searchMovie', 'setMovie']),
-
-    deleteMovie(m) {
-      this.removeMovie(m)
-    },
+    ...mapMutations(['setMovie']),
+    
     playMovie(m) {
       this.setMovie(m),
       this.$router.push({ name: 'SingleMovie' });
     }
-  },
-  mounted() {
-    this.GET_MOVIES() 
   }
 }
 </script>

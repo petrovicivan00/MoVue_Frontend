@@ -19,7 +19,7 @@
 
 <script>
 
-import {mapActions , mapState, mapMutations, mapGetters} from 'vuex'
+import {mapState, mapMutations, mapGetters} from 'vuex'
 
 export default {
 name: 'Standups',
@@ -29,21 +29,12 @@ computed: {
   ...mapGetters(['getStandups'])
 },
 methods: {
-  
-  ...mapActions(['GET_STANDUPS']),
-  ...mapMutations(['removeStandup','searchStandup', 'setStandup']),
+  ...mapMutations(['setStandup']),
 
   playStandup(s) {
       this.setStandup(s),
       this.$router.push({ name: 'SingleStandup' });
-  },
-  deleteStandup(s) {
-    this.removeStandup(s)
   }
-
-},
-mounted() {
-  this.GET_STANDUPS() 
 }
 }
 </script>

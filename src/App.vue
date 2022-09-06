@@ -26,7 +26,7 @@
             <b-nav-item v-else @click="logout()">Log Out</b-nav-item>
             <b-nav-form>
               <b-form-input v-model="search" size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-              <b-button  @click="browse()" size="sm" class="my-2 my-sm-0" color="black" type="submit">Search</b-button>
+              <b-button  @click="browse()" size="sm" class="my-2 my-sm-0" color="black" type="button">Search</b-button>
             </b-nav-form>
           </b-navbar-nav>
         </b-collapse>
@@ -50,18 +50,6 @@
       }
     },
 
-    computed: {
-      ...mapState([
-        'token'
-      ]),
-    },
-
-    mounted() {
-      if (localStorage.token) {
-        this.setToken(localStorage.token);
-      }
-    },
-
     methods: {
       ...mapActions(['GET_MOVIES','GET_SHOWS','GET_STANDUPS','GET_ANIMES']),
 
@@ -78,15 +66,27 @@
         this.removeToken();
       },
       browse(){
-        //this.GET_MOVIES();
-        //this.GET_SHOWS();
-        //this.GET_STANDUPS();
-        //this.GET_ANIMES();
         this.searchMovie(this.search);
         this.searchShow(this.search);
         this.searchStandup(this.search);
         this.searchAnime(this.search);
       }
+    },
+
+    computed: {
+      ...mapState([
+        'token'
+      ]),
+    },
+
+    mounted() {
+      if (localStorage.token) {
+        this.setToken(localStorage.token);
+      }
+      this.GET_MOVIES()
+      this.GET_SHOWS()
+      this.GET_STANDUPS()
+      this.GET_ANIMES()
     },
 
     sockets: {

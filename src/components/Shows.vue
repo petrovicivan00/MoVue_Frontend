@@ -19,7 +19,7 @@
 
 <script>
 
-import {mapActions , mapState, mapMutations, mapGetters} from 'vuex'
+import {mapState, mapMutations, mapGetters} from 'vuex'
 
 
 export default {
@@ -30,19 +30,12 @@ export default {
     ...mapGetters(['getShows'])
   },
   methods: {
-    ...mapActions(['GET_SHOWS']),
-    ...mapMutations(['removeShow','searchShow', 'setShow']),
+    ...mapMutations(['setShow']),
 
     playShow(s) {
       this.setShow(s),
       this.$router.push({ name: 'SingleShow' });
-    },
-    deleteShow(s) {
-      this.removeShow(s)
     }
-  },
-  mounted() {
-    this.GET_SHOWS() 
   }
 }
 </script>

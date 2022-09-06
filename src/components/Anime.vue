@@ -15,7 +15,7 @@ export default {
 
   props: {
     anime:Object
-  },
+  }
 }
 </script>
 

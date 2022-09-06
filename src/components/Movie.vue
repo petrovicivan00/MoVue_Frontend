@@ -13,7 +13,7 @@ export default {
   name: 'Movie',
 
   props: {
-    movie:Object
+    movie:[]
   }
 }
 </script>

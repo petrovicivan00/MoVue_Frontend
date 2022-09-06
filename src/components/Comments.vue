@@ -3,13 +3,11 @@
     <h4>User Comments</h4>
 
     <div v-if="token">
-      <b-form-input
-        v-model="comment"
-        placeholder="Say something..."
-        @keydown.enter="onSubmit"
-      ></b-form-input>
-
-      <b-card v-for="comment in image.comments" :title="comment.user.name" :key="comment.id">
+      <div style="display: flex;">
+        <b-form-input v-model="comment" placeholder="Say something..."></b-form-input>
+        <button type="button" @click="onSubmit">Submit</button>
+      </div>
+      <b-card v-for="comment in currentComments" :title="comment.user" :key="comment.id">
         <b-card-text>
           {{ comment.body }}
         </b-card-text>
@@ -21,15 +19,15 @@
 
 <script>
 
-  import { mapActions, mapState } from 'vuex';
+  import { mapState, mapMutations, mapActions} from 'vuex';
 
   export default {
     name: 'Comments',
 
-    props: {
-      image: Object
-    },
-
+  props: {
+    obj:[],
+    currentComments:[]
+  },
     data() {
       return {
         comment: ''
@@ -37,20 +35,21 @@
     },
 
     computed: {
-      ...mapState([
-        'token'
-      ])
+      ...mapState(['comments','token']),
     },
 
     methods: {
-      ...mapActions([
-        'postComment'
-      ]),
+      ...mapMutations(['getComments','addComment']),
+      ...mapActions(['postComment']),
 
       onSubmit() {
-        this.$socket.emit('comment', { body: this.comment, artId: this.image.objectID, token: this.token });
+       // this.$socket.emit('comment', { body: this.comment, object: this.obj.id });
+        this.postComment({ content: this.comment, object: this.obj.id })
         this.comment = '';
       }
+    },
+    mounted() {
+    this.currentComments = this.getComments(this.obj.id)
     }
   }
 
