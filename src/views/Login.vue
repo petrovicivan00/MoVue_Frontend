@@ -44,22 +44,15 @@
         e.preventDefault();
 
         let email = document.forms["mainForm"]["email"].value;
-        if (email === "") {
-          alert("Email must be filled out");
-          return false;
-        } else if (email.length < 3 | !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))) {
+        if (email.length < 3 | !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))) {
           alert("Email is not valid");
           return false;
         }
-         let password = document.forms["mainForm"]["password"].value;
-         if (password === "") {
-           alert("Password must be filled out");
-           return false;
-         } else if (password.length < 3 | password.length > 16 ) {
+        let password = document.forms["mainForm"]["password"].value;
+        if (password.length < 3 | password.length > 16 ) {
            alert("Password is not valid!");
            return false;
          }
-
         this.login(this.form);
         this.$router.push({ name: 'Home' });
       }

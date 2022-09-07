@@ -14,7 +14,7 @@ export default {
   name: 'Standup',
 
   props: {
-    standup:Object
+    standup:[]
   },
 }
 </script>

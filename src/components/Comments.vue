@@ -19,7 +19,7 @@
 
 <script>
 
-  import { mapState, mapMutations, mapActions} from 'vuex';
+  import { mapState, mapMutations} from 'vuex';
 
   export default {
     name: 'Comments',
@@ -40,12 +40,15 @@
 
     methods: {
       ...mapMutations(['getComments','addComment']),
-      ...mapActions(['postComment']),
 
       onSubmit() {
-       // this.$socket.emit('comment', { body: this.comment, object: this.obj.id });
-        this.postComment({ content: this.comment, object: this.obj.id })
+        if(this.comment==""){
+          alert("Cannot post empty comment!")
+          return false;
+        }
+        this.$socket.emit('comment', { content: this.comment, object: this.obj.id,token:this.token });
         this.comment = '';
+        this.currentComments = this.getComments(this.obj.id)
       }
     },
     mounted() {

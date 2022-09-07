@@ -14,7 +14,7 @@ export default {
   name: 'Show',
 
   props: {
-    show:Object
+    show:[]
   },
 }
 </script>

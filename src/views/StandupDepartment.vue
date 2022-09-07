@@ -10,7 +10,6 @@
   import Standups from '@/components/Standups.vue';
   import {mapActions} from 'vuex'
 
-
   export default {
     name: 'StandupDepartment',
     

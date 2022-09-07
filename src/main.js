@@ -10,15 +10,15 @@ import store from './store';
 
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
-/*
+
 Vue.use(new VueSocketIO({
   debug: false,
-  connection: 'ws://127.0.0.1:3000',
+  connection: 'ws://localhost:8080',
   vuex: {
       store,
       actionPrefix: 'socket_',
   }
-}));*/
+}));
 
 Vue.config.productionTip = false;
 

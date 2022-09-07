@@ -329,8 +329,9 @@ await axios
         alert(err)
      })
     },
-  socket_comment({ commit }, comment) {
-    commit('addComment', { comment });
+  socket_comment({ commit }, comm) {
+    const comment = JSON.parse(comm);
+    commit('addComment', { content: comment.content, object: comment.object  });
   }
 }      
 })

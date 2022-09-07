@@ -2,6 +2,8 @@
   <div id="app">
     <Header :subtitle="subtitle"/>
     <Standup :standup="standup"/>
+    <hr>
+    <Comments :obj="standup" />
   </div>
 </template>
 
@@ -9,8 +11,8 @@
 
   import Header from '@/components/Header.vue';
   import Standup from '@/components/Standup.vue';
-  //import Comments from '@/components/Comments.vue';
-  import { mapGetters} from 'vuex';
+  import Comments from '@/components/Comments.vue';
+  import { mapGetters,mapActions} from 'vuex';
 
   export default {
     name: 'SingleStandup',
@@ -18,21 +20,25 @@
     components: {
       Header,
       Standup,
-     // Comments
+      Comments
     },
 
     data() {
       return {
-        standup: null,
+        standup:[],
         subtitle: ''
       }
     },
     computed: {
         ...mapGetters(['getStandup'])
     },
+    methods:{
+      ...mapActions(['GET_COMMENTS'])
+    },
     mounted() {
         this.standup = this.getStandup
         this.subtitle = this.standup.title
+        this.GET_COMMENTS()
     }
   }
 

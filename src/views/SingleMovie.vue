@@ -41,5 +41,4 @@
         this.GET_COMMENTS()
     }
   }
-
 </script>

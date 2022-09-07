@@ -14,7 +14,7 @@ export default {
   name: 'Anime',
 
   props: {
-    anime:Object
+    anime:[]
   }
 }
 </script>
