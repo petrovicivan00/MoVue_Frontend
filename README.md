@@ -16,7 +16,7 @@ The application meets the following requirements:
 - The Vue.js application is hosted at the home ("/") route of the application service.
 - Utilizes Vue Router for navigation.
 - Employs Vuex store for state management.
-- Integrates Bootstrap Vue or a similar library for UI components.
+- Integrates Bootstrap Vue library for UI components.
 - Implements input validation for user inputs.
 - Real-time web functionality using websockets, applied based on the application's concept.
 
